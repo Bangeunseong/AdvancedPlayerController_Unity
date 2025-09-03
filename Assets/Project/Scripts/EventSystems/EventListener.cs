@@ -1,0 +1,29 @@
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace Project.Scripts.EventSystems
+{
+    public abstract class EventListener<T> : MonoBehaviour
+    {
+        [SerializeField] private EventChannel<T> eventChannel;
+        [SerializeField] private UnityEvent<T> unityEvent;
+
+        protected void Awake()
+        {
+            eventChannel.Register(this);
+        }
+
+        protected void OnDestroy()
+        {
+            eventChannel.Deregister(this);
+        }
+
+        public void Raise(T value)
+        {
+            unityEvent?.Invoke(value);
+        }
+        
+    }
+    public class EventListener : EventListener<Empty>{ }
+}
