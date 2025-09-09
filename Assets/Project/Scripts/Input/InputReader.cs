@@ -1,5 +1,3 @@
-using System;
-using Project.Scripts.FSM.State;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;

@@ -40,6 +40,11 @@ namespace Project.Scripts.Controllers.Player
                 RecalculateColliderDimensions();
         }
 
+        void LateUpdate() {
+            if (isInDebugMode)
+                sensor.DrawDebug();
+        }
+
         private void Setup()
         {
             tr = transform;
@@ -115,7 +120,7 @@ namespace Project.Scripts.Controllers.Player
             if (!isGrounded) return;
 
             float distance = sensor.GetDistance();
-            float upperLimit = colliderHeight * tr.localScale.x * (1 - stepHeightRatio) * 0.5f;
+            float upperLimit = colliderHeight * tr.localScale.x * (1f - stepHeightRatio) * 0.5f;
             float middle = upperLimit + colliderHeight * tr.localScale.x * stepHeightRatio;
             float distanceToGo = middle - distance;
 

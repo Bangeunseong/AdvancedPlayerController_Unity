@@ -55,5 +55,15 @@ namespace Project.Scripts.Controllers.AdvancedPlayer
                 _ => Vector3.one
             };
         }
+
+        public void DrawDebug() {
+            if (!HasDetectedHit()) return;
+
+            Debug.DrawRay(hitInfo.point, hitInfo.normal, Color.red, Time.deltaTime);
+            float markerSize = 0.2f;
+            Debug.DrawLine(hitInfo.point + Vector3.up * markerSize, hitInfo.point - Vector3.up * markerSize, Color.green, Time.deltaTime);
+            Debug.DrawLine(hitInfo.point + Vector3.right * markerSize, hitInfo.point - Vector3.right * markerSize, Color.green, Time.deltaTime);
+            Debug.DrawLine(hitInfo.point + Vector3.forward * markerSize, hitInfo.point - Vector3.forward * markerSize, Color.green, Time.deltaTime);
+        }
     }
 }

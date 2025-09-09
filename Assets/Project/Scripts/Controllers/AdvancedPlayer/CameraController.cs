@@ -44,12 +44,12 @@ namespace Project.Scripts.Controllers.AdvancedPlayer
         {
             if (smoothCameraRotation)
             {
-                horizontalInput = Mathf.Lerp(0, horizontalInput, Time.deltaTime * cameraSmoothingFactor);
-                verticalInput = Mathf.Lerp(0, verticalInput, Time.deltaTime * cameraSmoothingFactor);
+                horizontalInput = Mathf.Lerp(0, horizontalInput, Time.smoothDeltaTime * cameraSmoothingFactor);
+                verticalInput = Mathf.Lerp(0, verticalInput, Time.smoothDeltaTime * cameraSmoothingFactor);
             }
 
-            currentXAngle += verticalInput * cameraSpeed * Time.deltaTime;
-            currentYAngle += horizontalInput * cameraSpeed * Time.deltaTime;
+            currentXAngle += verticalInput * cameraSpeed * Time.smoothDeltaTime;
+            currentYAngle += horizontalInput * cameraSpeed * Time.smoothDeltaTime;
             
             currentXAngle = Mathf.Clamp(currentXAngle, -upperVerticalLimit, lowerVerticalLimit);
             

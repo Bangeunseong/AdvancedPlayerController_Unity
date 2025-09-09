@@ -29,7 +29,7 @@ namespace Project.Scripts.Controllers.AdvancedPlayer
 
             float distance = GetCameraDistance(castDirection);
 
-            currentDistance = Mathf.Lerp(currentDistance, distance, Time.deltaTime * smoothingFactor);
+            currentDistance = Mathf.Lerp(currentDistance, distance, Time.smoothDeltaTime * smoothingFactor);
             cameraTransform.position = tr.position + castDirection.normalized * currentDistance;
         }
 
