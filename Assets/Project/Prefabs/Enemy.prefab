@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3476403204497775126}
   - component: {fileID: 1698090661534039917}
   - component: {fileID: 8278305959827193976}
-  - component: {fileID: 7808556614202475951}
   - component: {fileID: 2236178184883666863}
   - component: {fileID: 6382220980467269527}
+  - component: {fileID: 6387553119162689368}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -80,23 +80,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.6
   m_Center: {x: 0, y: 0.4, z: 0}
---- !u!114 &7808556614202475951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 370501162166580123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ecb140a6fa4e3f8506bd11caeda226, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Project.Scripts.Controllers.Enemy.PlayerDetector
-  detectionAngle: 60
-  detectionRadius: 8
-  innerDetectionRadius: 2
-  detectionCooldown: 1
-  attackRange: 2
 --- !u!114 &2236178184883666863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,10 +93,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Project.Scripts.Controllers.Enemy
   agent: {fileID: 1698090661534039917}
-  playerDetector: {fileID: 7808556614202475951}
+  playerDetector: {fileID: 6387553119162689368}
   animator: {fileID: 4782705550225598838}
   wanderRadius: 10
   timeBetweenAttacks: 1
+  health: 50
 --- !u!114 &6382220980467269527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +112,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Project.Scripts.Controllers.Player.Health
   maxHealth: 100
   playerHealthChannel: {fileID: 0}
+--- !u!114 &6387553119162689368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370501162166580123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269273b15dff7f444ae886f95d9de649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Project.Scripts.Controllers.Enemy.PlayerDetector
+  detectionAngle: 60
+  detectionRadius: 10
+  innerDetectionRadius: 5
+  detectionCooldown: 1
+  attackRange: 2
 --- !u!1001 &6135878821672037884
 PrefabInstance:
   m_ObjectHideFlags: 0

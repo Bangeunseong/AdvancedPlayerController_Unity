@@ -1,4 +1,8 @@
-﻿using KBCore.Refs;
+﻿using System.Collections.Generic;
+using AdvancedPlayer.Project.Scripts.Controllers.AdvancedPlayer.PlayerAbility;
+using KBCore.Refs;
+using Project.Scripts.Controllers.AdvancedPlayer.PlayerAbility;
+using Project.Scripts.Controllers.Enemy;
 using Project.Scripts.Entities;
 using Project.Scripts.FSM;
 using Project.Scripts.FSM.Predicate;
@@ -8,11 +12,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using static Project.Scripts.Utils.Timer;
 
-namespace Project.Scripts.Controllers.Enemy
+namespace AdvancedPlayer.Project.Scripts.Controllers.AiEnemy
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(PlayerDetector))]
-    public class Enemy : Entity
+    public class Enemy : Entity, IDamagable
     {
         [Header("References")]
         [SerializeField, Self] private NavMeshAgent agent;
@@ -22,9 +26,12 @@ namespace Project.Scripts.Controllers.Enemy
         [Header("Enemy Settings")]
         [SerializeField] private float wanderRadius = 10f;
         [SerializeField] private float timeBetweenAttacks = 1f;
+        [SerializeField] int health = 50;
 
         private StateMachine stateMachine;
         private CountdownTimer attackTimer;
+
+        readonly List<IEffect<IDamagable>> activeEffects = new();
 
         private void OnValidate() => this.ValidateRefs();
 
@@ -66,6 +73,36 @@ namespace Project.Scripts.Controllers.Enemy
             
             attackTimer.Start();
             playerDetector.PlayerHealth.TakeDamage(10);
+        }
+        
+        public void TakeDamage(int amount) {
+            health -= amount;
+            Debug.Log($"Enemy took {amount} damage. Health now {health}");
+
+            if (health <= 0) Die();
+        }
+
+        public void ApplyEffect(IEffect<IDamagable> effect) {
+            effect.OnCompleted += RemoveEffect;
+            activeEffects.Add(effect);
+            effect.Apply(this);
+        }
+
+        void RemoveEffect(IEffect<IDamagable> effect) {
+            effect.OnCompleted -= RemoveEffect;
+            activeEffects.Remove(effect);
+        }
+
+        void Die() {
+            Debug.Log("Enemy died");
+
+            foreach (var effect in activeEffects) {
+                effect.OnCompleted -= RemoveEffect;
+                effect.Cancel();
+            }
+            activeEffects.Clear();
+            
+            Destroy(gameObject);
         }
     }
 }

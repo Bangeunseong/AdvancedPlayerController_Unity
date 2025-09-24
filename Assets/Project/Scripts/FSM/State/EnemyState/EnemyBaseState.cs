@@ -1,4 +1,5 @@
-﻿using Project.Scripts.Controllers.Enemy;
+﻿using AdvancedPlayer.Project.Scripts.Controllers.AiEnemy;
+using Project.Scripts.Controllers.Enemy;
 using UnityEngine;
 
 namespace Project.Scripts.FSM.State.EnemyState

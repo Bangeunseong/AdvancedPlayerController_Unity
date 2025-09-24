@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AdvancedPlayer.Project.Scripts.Controllers.AiEnemy;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Project.Scripts.FSM.State.EnemyState
@@ -9,7 +10,7 @@ namespace Project.Scripts.FSM.State.EnemyState
         private readonly Vector3 startPoint;
         private float wanderRadius;
         
-        public EnemyWanderState(Controllers.Enemy.Enemy enemy, Animator animator, NavMeshAgent agent, float wanderRadius) : base(enemy, animator)
+        public EnemyWanderState(Enemy enemy, Animator animator, NavMeshAgent agent, float wanderRadius) : base(enemy, animator)
         {
             this.agent = agent;
             this.startPoint = enemy.transform.position;

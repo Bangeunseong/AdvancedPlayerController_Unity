@@ -68,6 +68,38 @@ namespace Project.Scripts.Utils
             }
         }
 
+        // Interval Timer
+        public class IntervalTimer : Timer
+        {
+            readonly float interval;
+            float nextInterval;
+            
+            public Action OnInterval = delegate { };
+
+            public IntervalTimer(float totalTime, float intervalSecond) : base(totalTime) {
+                interval = intervalSecond;
+                nextInterval = totalTime - interval;
+            }
+
+            public override void Tick(float deltaTime) {
+                if (IsRunning && Time > 0) {
+                    Time -= deltaTime;
+
+                    while (Time <= nextInterval && nextInterval >= 0) {
+                        OnInterval.Invoke();
+                        nextInterval -= interval;
+                    }
+                }
+
+                if (IsRunning && Time <= 0) {
+                    Time = 0;
+                    Stop();
+                }
+            }
+            
+            public override bool IsFinished => Time <= 0;
+        }
+        
         // Stopwatch Timer
         public class StopwatchTimer : Timer
         {
